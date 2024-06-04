@@ -61,3 +61,62 @@ WHERE YEAR(`release_date`) = 2020;
 SELECT DISTINCT `videogame_id` 
 FROM `reviews`
 WHERE `rating` = 5;
+
+11- Selezionare il numero e la media delle recensioni per il videogioco con ID = 412 (review number = 12, avg_rating = 3.16 circa)
+
+SELECT COUNT(`id`), AVG(`rating`) FROM `reviews` WHERE `videogame_id` = 412;
+
+12-Selezionare il numero di videogame che la software house con ID = 1 ha rilasciato nel 2018 (13)
+
+SELECT * 
+FROM `videogames` 
+WHERE `software_house_id` = "1"
+AND YEAR(`release_date`) = "2018";
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+GROUP BY
+
+1- Contare quante software house ci sono per ogni paese (3)
+
+SELECT `country`, COUNT(*) AS `total_software_houses`
+FROM `software_houses`
+GROUP BY `country`;
+
+
+2- Contare quante recensioni ha ricevuto ogni videogioco (del videogioco vogliamo solo l'ID) (500)
+
+SELECT `videogame_id`, COUNT(*) AS `total_reviews`
+FROM `reviews`
+GROUP BY `videogame_id`
+ORDER BY `total_reviews` DESC;
+
+3- Contare quanti videogiochi hanno ciascuna classificazione PEGI (della classificazione PEGI vogliamo solo l'ID) (13)
+
+
+SELECT `pegi_label_id`, COUNT(*) as `total_videogames` 
+FROM `pegi_label_videogame` 
+GROUP BY `pegi_label_id` 
+ORDER BY `total_videogames` DESC;
+
+4- Mostrare il numero di videogiochi rilasciati ogni anno (11)
+
+SELECT YEAR(`release_date`), COUNT(*) as `total_videogames` 
+FROM `videogames`
+GROUP BY YEAR(`release_date`)
+ORDER BY `total_videogames` DESC;
+
+
+5- Contare quanti videogiochi sono disponbiili per ciascun device (del device vogliamo solo l'ID) (7)
+
+SELECT `device_id`, COUNT(*) AS `total_videogames` 
+FROM `device_videogame`
+GROUP BY `device_id`
+ORDER BY `total_videogames` DESC;
+
+6- Ordinare i videogame in base alla media delle recensioni (del videogioco vogliamo solo l'ID) (500)
+
+SELECT `videogame_id`, AVG(`rating`) as `average_rating`
+FROM `reviews` 
+GROUP BY `videogame_id`
+ORDER BY `average_rating` DESC;
